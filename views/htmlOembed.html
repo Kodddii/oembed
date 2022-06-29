@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<script>
+    
+    function callOembed(){
+        console.log($('#Url').val())
+        let oembedUrl = $('#Url').val();
+        console.log(oembedUrl)
+        $.ajax({
+            type:"GET",
+            url:`/oembed/?url=${oembedUrl}`,
+            data:{},
+            success: function(response){
+                console.log(response)
+                const {
+                    title, 
+                    url,
+                    type, 
+                    version, 
+                    provider_name,
+                    provider_url,
+                    author_name, 
+                    author_url, 
+                    html,
+                    description,
+                    thumbnail_url, 
+                    thumbnail_width,
+                } = response
+                let tempHtml = `<tr class="table-primary">
+                                    <td class="table-primary">title</td>
+                                    <td class="table-secondary">${title}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">url</td>
+                                    <td class="table-secondary">${url}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">type</td>
+                                    <td class="table-secondary">${type}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">version</td>
+                                    <td class="table-secondary">${version}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">provider_name</td>
+                                    <td class="table-secondary">${provider_name}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">provider_url</td>
+                                    <td class="table-secondary">${provider_url}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">author_name</td>
+                                    <td class="table-secondary">${author_name}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">author_url</td>
+                                    <td class="table-secondary">${author_url}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">html</td>
+                                    <td class="table-secondary">${html}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">description</td>
+                                    <td class="table-secondary">${description}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">thumbnail_url</td>
+                                    <td class="table-secondary">${thumbnail_url}</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td class="table-primary">thumbnail_width</td>
+                                    <td class="table-secondary">${thumbnail_width}</td>
+                                </tr>`
+                $("#oembeddata").append(tempHtml)                    
+            }
+        })
+
+    }
+</script>
+<body>
+    <div style="padding:30px">
+        <input type="text" id="Url" style= "width:600px"/><button onclick="callOembed()">확인</button>
+    </div>
+    <div style="padding-left:20px;">
+        <!-- On tables -->
+        <table id="oembeddata" >oembed data<br>
+            
+            
+
+        </table>
+
+    </div>
+</body>
+</html>
